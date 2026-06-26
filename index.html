@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Nacional — Steakhouse Regio | Monterrey, N.L.</title>
+    <meta name="description" content="Sabores sencillos, sabores conocidos. Steakhouse de alta cocina en Monterrey, Nuevo León. Tres sucursales: San Jerónimo, Gómez Morín y Madero.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --black:       #0a0a0a;
+            --dark:        #111111;
+            --gold:        #c9a84c;
+            --gold-light:  #e2c47a;
+            --cream:       #f5f0e8;
+            --cream-dim:   rgba(245,240,232,0.65);
+            --cream-faint: rgba(245,240,232,0.35);
+            --serif:       'Cormorant Garamond', Georgia, serif;
+            --sans:        'Montserrat', system-ui, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background: var(--black);
+            color: var(--cream);
+            font-family: var(--sans);
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button { font-family: var(--sans); }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.75rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.5s ease, padding 0.4s ease, border-color 0.5s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(10,10,10,0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 1.1rem 3rem;
+            border-bottom-color: rgba(201,168,76,0.12);
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+        .nav-links a {
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--cream-dim);
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        .nav-cta {
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.6rem 1.4rem;
+            transition: background 0.3s, color 0.3s;
+            cursor: pointer;
+            background: none;
+        }
+
+        .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 22px;
+            height: 1px;
+            background: var(--cream);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10,10,10,0.98);
+            z-index: 200;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--cream);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover { color: var(--gold); }
+
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--cream);
+            cursor: pointer;
+        }
+
+        /* HERO */
+        #hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=2560&q=95');
+            background-size: cover;
+            background-position: center 55%;
+            filter: brightness(0.32) grayscale(0.1) contrast(1.08);
+            transform: scale(1.06);
+            transition: transform 10s ease;
+        }
+
+        #hero.loaded .hero-bg { transform: scale(1); }
+
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                rgba(10,10,10,0.5) 0%,
+                rgba(10,10,10,0.1) 40%,
+                rgba(10,10,10,0.15) 60%,
+                rgba(10,10,10,0.85) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            padding: 0 2rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.6rem;
+            letter-spacing: 0.45em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.75rem;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeUp 1s 0.4s forwards;
+        }
+
+        .hero-title {
+            font-family: var(--serif);
+            font-size: clamp(5rem, 14vw, 10rem);
+            font-weight: 300;
+            line-height: 0.88;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.1s 0.6s forwards;
+        }
+
+        .hero-tagline {
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--cream-dim);
+            margin-bottom: 3.5rem;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeUp 1s 0.85s forwards;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            font-size: 0.68rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            border: 1px solid rgba(245,240,232,0.7);
+            color: var(--cream);
+            padding: 1rem 2.8rem;
+            transition: background 0.4s, color 0.4s, border-color 0.4s;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeUp 1s 1.05s forwards;
+        }
+
+        .hero-cta:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--black);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            opacity: 0;
+            animation: fadeIn 1s 1.8s forwards;
+        }
+
+        .hero-scroll span {
+            font-size: 0.52rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 56px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2.5s infinite;
+        }
+
+        /* SECTION BASE */
+        section { padding: 9rem 0; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+
+        .section-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.58rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-eyebrow::after {
+            content: '';
+            display: block;
+            height: 1px;
+            width: 36px;
+            background: var(--gold);
+            opacity: 0.45;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            font-weight: 300;
+            line-height: 1.05;
+        }
+
+        /* NOSOTROS */
+        #nosotros { background: var(--dark); }
+
+        .nosotros-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7rem;
+            align-items: center;
+        }
+
+        .nosotros-img-wrap {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+
+        .nosotros-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: brightness(0.58) grayscale(0.2);
+            transition: transform 0.9s ease, filter 0.9s ease;
+        }
+
+        .nosotros-img-wrap:hover img {
+            transform: scale(1.04);
+            filter: brightness(0.7) grayscale(0);
+        }
+
+        .nosotros-img-border {
+            position: absolute;
+            inset: 1.25rem;
+            border: 1px solid rgba(201,168,76,0.18);
+            pointer-events: none;
+        }
+
+        .nosotros-body {
+            font-size: 0.95rem;
+            line-height: 1.95;
+            color: var(--cream-dim);
+            margin-top: 2rem;
+        }
+
+        .nosotros-quote {
+            font-family: var(--serif);
+            font-size: 1.65rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.4;
+            color: var(--cream);
+            border-left: 2px solid var(--gold);
+            padding-left: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        /* PLATILLOS */
+        #platillos { background: var(--black); }
+
+        .platillos-header { margin-bottom: 3.5rem; }
+
+        .platillos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto auto;
+            gap: 1.25rem;
+        }
+
+        .platillo-card { position: relative; overflow: hidden; }
+
+        .platillo-card:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .platillo-img-wrap { position: relative; overflow: hidden; }
+
+        .platillo-card:first-child .platillo-img-wrap { aspect-ratio: 1 / 1.05; }
+        .platillo-card:not(:first-child) .platillo-img-wrap { aspect-ratio: 4/3; }
+
+        .platillo-img-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: brightness(0.5) grayscale(0.25);
+            transition: transform 0.8s ease, filter 0.8s ease;
+        }
+
+        .platillo-card:hover .platillo-img-wrap img {
+            transform: scale(1.06);
+            filter: brightness(0.68) grayscale(0);
+        }
+
+        .platillo-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0) 55%);
+        }
+
+        .platillo-info {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 1.75rem;
+        }
+
+        .platillo-label {
+            font-size: 0.58rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .platillo-name {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        .platillo-card:first-child .platillo-name { font-size: 2.1rem; }
+
+        /* MENÚ */
+        #menu { background: var(--dark); }
+
+        .menu-tabs {
+            display: flex;
+            margin: 3rem 0 3.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .menu-tab {
+            font-size: 0.63rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.9rem 2rem;
+            cursor: pointer;
+            color: var(--cream-faint);
+            border: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            background: none;
+            white-space: nowrap;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .menu-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+        .menu-tab:hover:not(.active) { color: var(--cream-dim); }
+
+        .menu-panel { display: none; }
+        .menu-panel.active { display: block; }
+
+        .menu-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 3rem;
+        }
+
+        .menu-cat-title {
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(201,168,76,0.18);
+            margin-bottom: 1.25rem;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .menu-item-name {
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            font-weight: 400;
+            margin-bottom: 0.15rem;
+        }
+
+        .menu-item-desc {
+            font-size: 0.65rem;
+            color: var(--cream-faint);
+            letter-spacing: 0.05em;
+        }
+
+        .menu-item-price {
+            font-size: 0.78rem;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        /* SUCURSALES */
+        #sucursales { background: var(--black); }
+
+        .sucursales-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .sucursal-card {
+            border: 1px solid rgba(255,255,255,0.07);
+            padding: 2.5rem 2.25rem;
+            position: relative;
+            transition: border-color 0.4s;
+        }
+
+        .sucursal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            height: 2px; width: 0;
+            background: var(--gold);
+            transition: width 0.45s ease;
+        }
+
+        .sucursal-card:hover { border-color: rgba(201,168,76,0.25); }
+        .sucursal-card:hover::before { width: 100%; }
+
+        .sucursal-num {
+            font-family: var(--serif);
+            font-size: 4.5rem;
+            font-weight: 300;
+            color: rgba(201,168,76,0.08);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            user-select: none;
+        }
+
+        .sucursal-name {
+            font-family: var(--serif);
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin-bottom: 1.75rem;
+        }
+
+        .sucursal-row {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .sucursal-icon {
+            width: 14px; height: 14px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            opacity: 0.4;
+        }
+
+        .sucursal-text {
+            font-size: 0.78rem;
+            color: var(--cream-dim);
+            line-height: 1.65;
+        }
+
+        .sucursal-hours {
+            font-size: 0.7rem;
+            color: var(--cream-faint);
+            line-height: 1.9;
+            letter-spacing: 0.04em;
+        }
+
+        .sucursal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(201,168,76,0.28);
+            padding: 0.65rem 1.2rem;
+            transition: background 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+        .sucursal-btn:hover { background: var(--gold); color: var(--black); }
+
+        /* RESERVACIONES */
+        #reservaciones { background: var(--dark); text-align: center; }
+
+        .reservaciones-inner { max-width: 680px; margin: 0 auto; }
+
+        .reservaciones-inner .section-eyebrow { justify-content: center; }
+        .reservaciones-inner .section-eyebrow::before {
+            content: '';
+            display: block;
+            height: 1px; width: 36px;
+            background: var(--gold);
+            opacity: 0.45;
+        }
+
+        .reservaciones-body {
+            font-size: 0.92rem;
+            line-height: 1.95;
+            color: var(--cream-dim);
+            margin: 2rem 0 3.5rem;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--gold);
+            color: var(--black);
+            padding: 1.1rem 2.8rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-whatsapp:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+        .sep-line {
+            width: 1px; height: 50px;
+            background: rgba(201,168,76,0.25);
+            margin: 2.75rem auto;
+        }
+
+        .phones-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        .phone-item { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+
+        .phone-label {
+            font-size: 0.53rem;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+        }
+
+        .phone-num {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            color: var(--cream-dim);
+            transition: color 0.3s;
+        }
+
+        .phone-num:hover { color: var(--gold); }
+
+        /* FOOTER */
+        footer {
+            background: #050505;
+            padding: 4.5rem 0 3rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+
+        .footer-logo {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0.4rem;
+        }
+
+        .footer-sub {
+            text-align: center;
+            font-size: 0.6rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+            margin-bottom: 3rem;
+        }
+
+        .footer-rule { height: 1px; background: rgba(255,255,255,0.05); margin-bottom: 2rem; }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copy { font-size: 0.62rem; letter-spacing: 0.1em; color: var(--cream-faint); }
+
+        .footer-ig {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+            transition: color 0.3s;
+        }
+
+        .footer-ig:hover { color: var(--gold); }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.25; }
+            50%       { opacity: 1; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(38px);
+            transition: opacity 0.85s ease, transform 0.85s ease;
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.22s; }
+        .delay-3 { transition-delay: 0.34s; }
+        .delay-4 { transition-delay: 0.46s; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            nav { padding: 1.4rem 1.75rem; }
+            nav.scrolled { padding: 1rem 1.75rem; }
+            .nav-links, .nav-cta { display: none; }
+            .nav-hamburger { display: flex; }
+            .container { padding: 0 1.75rem; }
+            section { padding: 6rem 0; }
+            .nosotros-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+            .nosotros-img-wrap { aspect-ratio: 16/9; }
+            .platillos-grid { grid-template-columns: 1fr 1fr; }
+            .platillo-card:first-child { grid-column: 1 / -1; grid-row: span 1; }
+            .platillo-card:first-child .platillo-img-wrap { aspect-ratio: 16/9; }
+            .sucursales-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+            .menu-categories { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 540px) {
+            .hero-title { font-size: 4.5rem; }
+            .platillos-grid { grid-template-columns: 1fr; }
+            .phones-row { gap: 1.5rem; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar" aria-label="Navegación principal">
+    <a href="#" class="nav-logo" aria-label="La Nacional — inicio">La Nacional</a>
+
+    <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#platillos">Platillos</a></li>
+        <li><a href="#menu">Menú</a></li>
+        <li><a href="#sucursales">Sucursales</a></li>
+    </ul>
+
+    <a href="#reservaciones" class="nav-cta" role="button">Reservar</a>
+
+    <button class="nav-hamburger" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+    <button class="mobile-close" id="menuClose" aria-label="Cerrar menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+    </button>
+    <a href="#nosotros"      onclick="closeMobile()">Nosotros</a>
+    <a href="#platillos"     onclick="closeMobile()">Platillos</a>
+    <a href="#menu"          onclick="closeMobile()">Menú</a>
+    <a href="#sucursales"    onclick="closeMobile()">Sucursales</a>
+    <a href="#reservaciones" onclick="closeMobile()">Reservar</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" aria-label="La Nacional Steakhouse">
+    <div class="hero-bg" role="img" aria-label="Ribeye a la sal sobre brasas, La Nacional"></div>
+    <div class="hero-vignette" aria-hidden="true"></div>
+
+    <div class="hero-content">
+        <p class="hero-eyebrow">Monterrey, Nuevo León</p>
+        <h1 class="hero-title">La<br>Nacional</h1>
+        <p class="hero-tagline">Sabores sencillos, sabores conocidos</p>
+        <a href="#reservaciones" class="hero-cta">Reservar mesa</a>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+        <span>Descubrir</span>
+        <div class="hero-scroll-line"></div>
+    </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" aria-labelledby="nosotros-title">
+    <div class="container">
+        <div class="nosotros-grid">
+            <div class="nosotros-img-wrap reveal">
+                <img
+                    src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80"
+                    alt="Interior elegante y oscuro de La Nacional"
+                    loading="lazy"
+                >
+                <div class="nosotros-img-border" aria-hidden="true"></div>
+            </div>
+
+            <div class="nosotros-text">
+                <p class="section-eyebrow reveal">Nuestra historia</p>
+                <h2 class="section-title reveal delay-1" id="nosotros-title">El sabor<br>de lo nuestro</h2>
+
+                <blockquote class="nosotros-quote reveal delay-2">
+                    "No inventamos nada.<br>Solo lo hacemos bien."
+                </blockquote>
+
+                <p class="nosotros-body reveal delay-3">
+                    En La Nacional creemos que la grandeza está en lo sencillo. Somos un steakhouse regio que honra los cortes de res con técnica precisa y sin adornos innecesarios. Nuestro Ribeye a la Sal es la prueba de que la simplicidad, ejecutada con maestría, supera cualquier complejidad.
+                </p>
+                <p class="nosotros-body reveal delay-4" style="margin-top:1.25rem">
+                    Tres sucursales en Monterrey. Una sola filosofía: carne de calidad, fuego honesto, y la compañía correcta.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PLATILLOS -->
+<section id="platillos" aria-labelledby="platillos-title">
+    <div class="container">
+        <div class="platillos-header">
+            <p class="section-eyebrow reveal">Lo mejor de La Nacional</p>
+            <h2 class="section-title reveal delay-1" id="platillos-title">Platillos Insignia</h2>
+        </div>
+
+        <div class="platillos-grid">
+            <div class="platillo-card reveal">
+                <div class="platillo-img-wrap">
+                    <img src="https://static.wixstatic.com/media/e67f0e_f2e515e867f04c22a0c79a81cf78f6ae~mv2.jpg/v1/fill/w_1200,h_900,q_95,enc_jpg,quality_auto/e67f0e_f2e515e867f04c22a0c79a81cf78f6ae~mv2.jpg" alt="Ribeye a la Sal, platillo insignia de La Nacional" loading="lazy">
+                    <div class="platillo-gradient" aria-hidden="true"></div>
+                </div>
+            </div>
+
+            <div class="platillo-card reveal delay-1">
+                <div class="platillo-img-wrap">
+                    <img src="https://static.wixstatic.com/media/e67f0e_5f8b2869d4034e3caa2c249c9430a408~mv2.jpg/v1/fill/w_1200,h_900,q_95,enc_jpg,quality_auto/e67f0e_5f8b2869d4034e3caa2c249c9430a408~mv2.jpg" alt="Chicharrón de res crujiente" loading="lazy">
+                    <div class="platillo-gradient" aria-hidden="true"></div>
+                </div>
+            </div>
+
+            <div class="platillo-card reveal delay-2">
+                <div class="platillo-img-wrap">
+                    <img src="https://static.wixstatic.com/media/e67f0e_5daf6dec6f044879927e89898cd59600~mv2.jpg/v1/fill/w_1200,h_900,q_95,enc_jpg,quality_auto/e67f0e_5daf6dec6f044879927e89898cd59600~mv2.jpg" alt="Pulpo a las brasas" loading="lazy">
+                    <div class="platillo-gradient" aria-hidden="true"></div>
+                </div>
+            </div>
+
+            <div class="platillo-card reveal delay-1">
+                <div class="platillo-img-wrap">
+                    <img src="https://static.wixstatic.com/media/e67f0e_0f717443bb3e414888719896636729b2~mv2.jpg/v1/fill/w_1200,h_900,q_95,enc_jpg,quality_auto/e67f0e_0f717443bb3e414888719896636729b2~mv2.jpg" alt="Pastel de pistache" loading="lazy">
+                    <div class="platillo-gradient" aria-hidden="true"></div>
+                </div>
+            </div>
+
+            <div class="platillo-card reveal delay-2">
+                <div class="platillo-img-wrap">
+                    <img src="https://static.wixstatic.com/media/e67f0e_787698bb2b8e4cd8847d2c67f2e32a24~mv2.jpg/v1/fill/w_1200,h_900,q_95,enc_jpg,quality_auto/e67f0e_787698bb2b8e4cd8847d2c67f2e32a24~mv2.jpg" alt="Arrachera en brasas" loading="lazy">
+                    <div class="platillo-gradient" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MENÚ -->
+<section id="menu" aria-labelledby="menu-title">
+    <div class="container">
+        <p class="section-eyebrow reveal">Nuestra carta</p>
+        <h2 class="section-title reveal delay-1" id="menu-title">Menú</h2>
+
+        <div class="menu-tabs" role="tablist" aria-label="Menú por sucursal">
+            <button class="menu-tab active" role="tab" aria-selected="true"  aria-controls="panel-sj"  data-tab="sj">San Jerónimo</button>
+            <button class="menu-tab"        role="tab" aria-selected="false" aria-controls="panel-gm"  data-tab="gm">Gómez Morín</button>
+            <button class="menu-tab"        role="tab" aria-selected="false" aria-controls="panel-mad" data-tab="mad">Madero</button>
+        </div>
+
+        <!-- SAN JERÓNIMO -->
+        <div class="menu-panel active" id="panel-sj" role="tabpanel">
+            <div class="menu-categories">
+                <div>
+                    <h3 class="menu-cat-title">Entradas</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Chicharrón de Res</p><p class="menu-item-desc">crujiente · chile serrano · limón</p></div><span class="menu-item-price">$185</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Aguacate Tatemado</p><p class="menu-item-desc">queso de cabra · pepita · vinagreta</p></div><span class="menu-item-price">$165</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Tártara de Res</p><p class="menu-item-desc">alcaparra · mostaza dijon · tostada</p></div><span class="menu-item-price">$220</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Sopa de Cebolla</p><p class="menu-item-desc">caldo de hueso · queso gratinado</p></div><span class="menu-item-price">$155</span></div>
+                    <h3 class="menu-cat-title" style="margin-top:2.5rem">Postres</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Pastel de Pistache</p><p class="menu-item-desc">crema batida · pistache tostado</p></div><span class="menu-item-price">$145</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Flan Napolitano</p><p class="menu-item-desc">caramelo oscuro · vainilla de Papantla</p></div><span class="menu-item-price">$95</span></div>
+                </div>
+                <div>
+                    <h3 class="menu-cat-title">Cortes</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Ribeye a la Sal</p><p class="menu-item-desc">16 oz · sal gruesa · mantequilla de hierbas</p></div><span class="menu-item-price">$695</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">T-Bone</p><p class="menu-item-desc">24 oz · sal de mar · chimichurri</p></div><span class="menu-item-price">$785</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">New York Strip</p><p class="menu-item-desc">14 oz · mantequilla negra</p></div><span class="menu-item-price">$595</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Arrachera</p><p class="menu-item-desc">12 oz · adobo seco · cebolla cambray</p></div><span class="menu-item-price">$445</span></div>
+                </div>
+                <div>
+                    <h3 class="menu-cat-title">Guarniciones</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Papas al Horno</p><p class="menu-item-desc">crema ácida · cebollín</p></div><span class="menu-item-price">$95</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Espárragos</p><p class="menu-item-desc">mantequilla clarificada · limón</p></div><span class="menu-item-price">$110</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Puré de Papa</p><p class="menu-item-desc">mantequilla francesa · trufa negra</p></div><span class="menu-item-price">$120</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Elote Rostizado</p><p class="menu-item-desc">mayonesa de chipotle · queso cotija</p></div><span class="menu-item-price">$85</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GÓMEZ MORÍN -->
+        <div class="menu-panel" id="panel-gm" role="tabpanel">
+            <div class="menu-categories">
+                <div>
+                    <h3 class="menu-cat-title">Entradas</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Chicharrón de Res</p><p class="menu-item-desc">crujiente · chile serrano · limón</p></div><span class="menu-item-price">$185</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Pulpo a la Brasa</p><p class="menu-item-desc">papas baby · chorizo · salsa verde</p></div><span class="menu-item-price">$265</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Tártara de Res</p><p class="menu-item-desc">alcaparra · mostaza dijon · tostada</p></div><span class="menu-item-price">$220</span></div>
+                    <h3 class="menu-cat-title" style="margin-top:2.5rem">Postres</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Pastel de Pistache</p><p class="menu-item-desc">crema batida · pistache tostado</p></div><span class="menu-item-price">$145</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Fondant de Chocolate</p><p class="menu-item-desc">centro líquido · helado de vainilla</p></div><span class="menu-item-price">$125</span></div>
+                </div>
+                <div>
+                    <h3 class="menu-cat-title">Cortes</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Ribeye a la Sal</p><p class="menu-item-desc">16 oz · sal gruesa · mantequilla de hierbas</p></div><span class="menu-item-price">$695</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Tomahawk</p><p class="menu-item-desc">32 oz · para compartir · sal de mar</p></div><span class="menu-item-price">$1,450</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Filete Mignon</p><p class="menu-item-desc">8 oz · salsa bordelesa</p></div><span class="menu-item-price">$545</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Arrachera</p><p class="menu-item-desc">12 oz · adobo seco · cebolla cambray</p></div><span class="menu-item-price">$445</span></div>
+                </div>
+                <div>
+                    <h3 class="menu-cat-title">Guarniciones</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Mac &amp; Cheese de Trufa</p><p class="menu-item-desc">queso gouda · trufa negra</p></div><span class="menu-item-price">$135</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Espárragos</p><p class="menu-item-desc">mantequilla clarificada · limón</p></div><span class="menu-item-price">$110</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Puré de Papa</p><p class="menu-item-desc">mantequilla francesa · trufa negra</p></div><span class="menu-item-price">$120</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MADERO -->
+        <div class="menu-panel" id="panel-mad" role="tabpanel">
+            <div class="menu-categories">
+                <div>
+                    <h3 class="menu-cat-title">Entradas</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Chicharrón de Res</p><p class="menu-item-desc">crujiente · chile serrano · limón</p></div><span class="menu-item-price">$165</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Caldo Tlalpeño</p><p class="menu-item-desc">pollo · garbanzos · chipotle</p></div><span class="menu-item-price">$145</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Aguacate Tatemado</p><p class="menu-item-desc">queso de cabra · pepita · vinagreta</p></div><span class="menu-item-price">$155</span></div>
+                </div>
+                <div>
+                    <h3 class="menu-cat-title">Cortes</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Ribeye a la Sal</p><p class="menu-item-desc">16 oz · sal gruesa · mantequilla de hierbas</p></div><span class="menu-item-price">$695</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">New York Strip</p><p class="menu-item-desc">14 oz · mantequilla negra</p></div><span class="menu-item-price">$575</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Arrachera</p><p class="menu-item-desc">12 oz · adobo seco · cebolla cambray</p></div><span class="menu-item-price">$425</span></div>
+                </div>
+                <div>
+                    <h3 class="menu-cat-title">Guarniciones</h3>
+                    <div class="menu-item"><div><p class="menu-item-name">Papas al Horno</p><p class="menu-item-desc">crema ácida · cebollín</p></div><span class="menu-item-price">$85</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Puré de Papa</p><p class="menu-item-desc">mantequilla francesa</p></div><span class="menu-item-price">$105</span></div>
+                    <div class="menu-item"><div><p class="menu-item-name">Nopales a la Plancha</p><p class="menu-item-desc">queso fresco · epazote</p></div><span class="menu-item-price">$90</span></div>
+                    <p style="font-size:0.65rem;color:var(--cream-faint);margin-top:1.5rem;letter-spacing:0.06em">Sucursal Centro · Lunes a Viernes únicamente</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SUCURSALES -->
+<section id="sucursales" aria-labelledby="sucursales-title">
+    <div class="container">
+        <p class="section-eyebrow reveal">Encuéntranos</p>
+        <h2 class="section-title reveal delay-1" id="sucursales-title">Nuestras Sucursales</h2>
+
+        <div class="sucursales-grid">
+            <div class="sucursal-card reveal">
+                <div class="sucursal-num" aria-hidden="true">01</div>
+                <h3 class="sucursal-name">San Jerónimo</h3>
+                <div class="sucursal-row">
+                    <svg class="sucursal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                    <p class="sucursal-text">Av. San Jerónimo 1106<br>Miravalle, Monterrey, N.L. 64634</p>
+                </div>
+                <div class="sucursal-row">
+                    <svg class="sucursal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <div class="sucursal-hours">Lun – Jue &nbsp;1PM – 1AM<br>Vie – Sáb &nbsp;1PM – 2AM<br>Dom &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1PM – 12AM</div>
+                </div>
+                <a href="https://maps.google.com/?q=Av.+San+Jerónimo+1106,+Miravalle,+Monterrey" target="_blank" rel="noopener noreferrer" class="sucursal-btn" aria-label="Ver en Google Maps">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 13l5-5-5-5M22 8H9a7 7 0 000 14h1"/></svg>
+                    Google Maps
+                </a>
+            </div>
+
+            <div class="sucursal-card reveal delay-1">
+                <div class="sucursal-num" aria-hidden="true">02</div>
+                <h3 class="sucursal-name">Gómez Morín</h3>
+                <div class="sucursal-row">
+                    <svg class="sucursal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                    <p class="sucursal-text">Av. Manuel Gómez Morín 922<br>Monterrey, N.L. 66259</p>
+                </div>
+                <div class="sucursal-row">
+                    <svg class="sucursal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <div class="sucursal-hours">Lun – Jue &nbsp;1PM – 1AM<br>Vie – Sáb &nbsp;1PM – 2AM<br>Dom &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1PM – 12AM</div>
+                </div>
+                <a href="https://maps.google.com/?q=Av.+Manuel+Gómez+Morín+922,+Monterrey" target="_blank" rel="noopener noreferrer" class="sucursal-btn" aria-label="Ver en Google Maps">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 13l5-5-5-5M22 8H9a7 7 0 000 14h1"/></svg>
+                    Google Maps
+                </a>
+            </div>
+
+            <div class="sucursal-card reveal delay-2">
+                <div class="sucursal-num" aria-hidden="true">03</div>
+                <h3 class="sucursal-name">Madero</h3>
+                <div class="sucursal-row">
+                    <svg class="sucursal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                    <p class="sucursal-text">Av. Francisco I. Madero 1160<br>Centro, Monterrey, N.L. 64000</p>
+                </div>
+                <div class="sucursal-row">
+                    <svg class="sucursal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    <div class="sucursal-hours">Lun – Vie &nbsp;&nbsp;1PM – 10PM<br>Sáb – Dom &nbsp;Cerrado</div>
+                </div>
+                <a href="https://maps.google.com/?q=Av.+Francisco+I.+Madero+1160,+Centro,+Monterrey" target="_blank" rel="noopener noreferrer" class="sucursal-btn" aria-label="Ver en Google Maps">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 13l5-5-5-5M22 8H9a7 7 0 000 14h1"/></svg>
+                    Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RESERVACIONES -->
+<section id="reservaciones" aria-labelledby="reservaciones-title">
+    <div class="container">
+        <div class="reservaciones-inner">
+            <p class="section-eyebrow reveal">¿Listo para visitarnos?</p>
+            <h2 class="section-title reveal delay-1" id="reservaciones-title">Reserva tu mesa</h2>
+
+            <p class="reservaciones-body reveal delay-2">
+                Para garantizar tu lugar, contáctanos por WhatsApp o por teléfono. Atendemos reservaciones con anticipación mínima de una hora.
+            </p>
+
+            <a href="https://wa.me/8119104556" target="_blank" rel="noopener noreferrer" class="btn-whatsapp reveal delay-2" aria-label="Reservar por WhatsApp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Reservar por WhatsApp
+            </a>
+
+            <div class="sep-line" aria-hidden="true"></div>
+
+            <div class="phones-row reveal delay-3">
+                <div class="phone-item">
+                    <span class="phone-label">San Jerónimo</span>
+                    <a href="tel:+528183479205" class="phone-num">81.8347.9205</a>
+                </div>
+                <div class="phone-item">
+                    <span class="phone-label">Gómez Morín</span>
+                    <a href="tel:+528180560040" class="phone-num">81.8056.0040</a>
+                </div>
+                <div class="phone-item">
+                    <span class="phone-label">Madero</span>
+                    <a href="tel:+528183753890" class="phone-num">81.8375.3890</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <p class="footer-logo">La Nacional</p>
+        <p class="footer-sub">Steakhouse Regio · Monterrey, Nuevo León</p>
+        <div class="footer-rule" aria-hidden="true"></div>
+        <div class="footer-bottom">
+            <p class="footer-copy">© 2023 Gastronómica Holdings. Todos los derechos reservados.</p>
+            <a href="https://instagram.com/lanacionalmx" target="_blank" rel="noopener noreferrer" class="footer-ig" aria-label="Instagram @lanacionalmx">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="5"/>
+                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                </svg>
+                @lanacionalmx
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Hero zoom on load
+    document.getElementById('hero').classList.add('loaded');
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Menu tabs
+    document.querySelectorAll('.menu-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.menu-tab').forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+            document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+        });
+    });
+
+    // Mobile menu
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuBtn = document.getElementById('menuBtn');
+
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        menuBtn.setAttribute('aria-expanded', 'true');
+    });
+
+    function closeMobile() {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+        menuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    document.getElementById('menuClose').addEventListener('click', closeMobile);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobile();
+    });
+</script>
+</body>
+</html>
