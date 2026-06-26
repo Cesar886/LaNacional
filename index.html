@@ -1531,39 +1531,79 @@
 
         /* ── Light theme ───────────────────────────────────────────── */
         :root[data-theme="light"] {
-            --black:       #f5f0e8;
-            --dark:        #ede8df;
-            --gold:        #b8892a;
-            --gold-light:  #9a7020;
-            --cream:       #1c1209;
-            --cream-dim:   rgba(28,18,9,0.82);
-            --cream-faint: rgba(28,18,9,0.62);
+            --black:       #f8f3ea;
+            --dark:        #efe8d8;
+            --gold:        #9a6d22;
+            --gold-light:  #7c5218;
+            --cream:       #1a0d04;
+            --cream-dim:   rgba(26,13,4,0.76);
+            --cream-faint: rgba(26,13,4,0.52);
         }
 
+        /* Sections with permanent dark overlays: re-scope to dark palette */
+        [data-theme="light"] #hero {
+            --cream: rgba(245,240,232,0.94);
+            --cream-dim: rgba(245,240,232,0.65);
+            --cream-faint: rgba(245,240,232,0.38);
+            color: rgba(245,240,232,0.94);
+        }
+
+        [data-theme="light"] .platillo-info {
+            --cream: rgba(245,240,232,0.96);
+            --cream-dim: rgba(245,240,232,0.72);
+        }
+
+        /* Footer: inverted dark (premium signature) */
+        [data-theme="light"] footer {
+            --cream: rgba(245,240,232,0.82);
+            --cream-dim: rgba(245,240,232,0.56);
+            --cream-faint: rgba(245,240,232,0.36);
+            --gold: #c9a84c;
+            background: #1a0e05;
+            border-top-color: rgba(201,168,76,0.20);
+        }
+
+        [data-theme="light"] .footer-rule {
+            background: rgba(245,240,232,0.08);
+        }
+
+        /* Navbar */
         [data-theme="light"] #navbar {
-            background: rgba(245,240,232,0.94);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom-color: rgba(184,137,42,0.14);
+            background: rgba(248,243,234,0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom-color: rgba(154,109,34,0.12);
+            box-shadow: 0 1px 0 rgba(154,109,34,0.10);
         }
 
         [data-theme="light"] #navbar.scrolled {
-            background: rgba(245,240,232,0.98);
-            border-bottom-color: rgba(184,137,42,0.22);
+            background: rgba(248,243,234,0.98);
+            border-bottom-color: rgba(154,109,34,0.20);
+            box-shadow: 0 4px 32px rgba(26,13,4,0.10);
         }
 
+        [data-theme="light"] .nav-hamburger span {
+            background: var(--cream);
+        }
+
+        /* Controls */
         [data-theme="light"] .lang-switch {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.55);
+            border-color: rgba(154,109,34,0.25);
         }
 
         [data-theme="light"] .theme-toggle {
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.55);
+            border-color: rgba(154,109,34,0.25);
         }
 
+        /* Mobile menu */
         [data-theme="light"] .mobile-menu {
-            background: rgba(245,240,232,0.99);
+            background: rgba(248,243,234,0.99);
+            box-shadow: -4px 0 40px rgba(26,13,4,0.14);
         }
 
+        /* Menu section */
         [data-theme="light"] .menu-tabs {
             border-bottom-color: rgba(0,0,0,0.10);
         }
@@ -1572,20 +1612,24 @@
             border-bottom-color: rgba(0,0,0,0.07);
         }
 
+        [data-theme="light"] .menu-item:hover {
+            background: rgba(154,109,34,0.04);
+        }
+
         [data-theme="light"] .menu-search input {
             background: rgba(0,0,0,0.04);
-            border-color: rgba(184,137,42,0.28);
+            border-color: rgba(154,109,34,0.25);
             color: var(--cream);
         }
 
         [data-theme="light"] .menu-search input:focus {
             background: rgba(0,0,0,0.06);
-            border-color: rgba(184,137,42,0.55);
+            border-color: rgba(154,109,34,0.52);
         }
 
         [data-theme="light"] .menu-mobile-subnav {
-            background: #ede8df;
-            border-bottom-color: rgba(184,137,42,0.18);
+            background: #efe8d8;
+            border-bottom-color: rgba(154,109,34,0.18);
         }
 
         [data-theme="light"] .menu-subnav-btn {
@@ -1596,29 +1640,32 @@
 
         [data-theme="light"] .menu-subnav-btn.active,
         [data-theme="light"] .menu-subnav-btn:hover {
-            background: rgba(184,137,42,0.10);
-            border-color: rgba(184,137,42,0.38);
+            background: rgba(154,109,34,0.10);
+            border-color: rgba(154,109,34,0.35);
             color: var(--gold);
         }
 
         [data-theme="light"] .pairing-tip {
-            background: rgba(252,250,246,0.99);
-            border-color: rgba(184,137,42,0.28);
+            background: #f8f3ea;
+            border-color: rgba(154,109,34,0.25);
+            box-shadow: 0 4px 28px rgba(26,13,4,0.12);
             color: var(--cream-dim);
         }
 
+        /* Dish modal */
         [data-theme="light"] .dish-modal {
-            background: rgba(26,20,16,0.48);
+            background: rgba(26,13,4,0.45);
         }
 
         [data-theme="light"] .dish-modal-card {
-            background: #faf7f2;
-            border-color: rgba(184,137,42,0.22);
+            background: #f8f3ea;
+            border-color: rgba(154,109,34,0.18);
+            box-shadow: 0 20px 80px rgba(26,13,4,0.22);
         }
 
         [data-theme="light"] .dish-modal-close {
-            background: rgba(245,240,232,0.92);
-            border-color: rgba(0,0,0,0.14);
+            background: rgba(248,243,234,0.95);
+            border-color: rgba(0,0,0,0.12);
             color: var(--cream);
         }
 
@@ -1627,44 +1674,24 @@
             color: var(--gold);
         }
 
+        /* Sucursales */
         [data-theme="light"] .sucursal-card {
-            border-color: rgba(0,0,0,0.10);
+            border-color: rgba(154,109,34,0.12);
             background: rgba(255,255,255,0.55);
+            box-shadow: 0 2px 24px rgba(26,13,4,0.07);
         }
 
-        [data-theme="light"] footer {
-            background: #dedad1;
+        /* Images — slightly brighter in light context */
+        [data-theme="light"] .platillo-img-wrap img {
+            filter: brightness(0.62) grayscale(0.18);
         }
 
-        [data-theme="light"] .footer-rule {
-            background: rgba(0,0,0,0.09);
+        [data-theme="light"] .nosotros-img-wrap img {
+            filter: brightness(0.72) grayscale(0.12);
         }
 
-        [data-theme="light"] .nav-hamburger span {
-            background: var(--cream);
-        }
-
-        /* Hero always has dark vignette — keep text cream regardless of theme */
-        [data-theme="light"] #hero {
-            color: rgba(245,240,232,0.92);
-        }
-        [data-theme="light"] .hero-tagline {
-            color: rgba(245,240,232,0.72);
-        }
-        [data-theme="light"] .hero-cta {
-            color: rgba(245,240,232,0.92);
-            border-color: rgba(245,240,232,0.65);
-        }
-        [data-theme="light"] .hero-cta:hover {
-            color: var(--black);
-        }
-        [data-theme="light"] .hero-scroll span {
-            color: rgba(245,240,232,0.45);
-        }
-
-        /* Platillos cards have dark gradient overlay — keep text white */
-        [data-theme="light"] .platillo-name {
-            color: rgba(245,240,232,0.96);
+        [data-theme="light"] .dish-modal-media img {
+            filter: brightness(0.82) contrast(1.05) grayscale(0.08);
         }
     </style>
 </head>
@@ -2653,8 +2680,7 @@
         if (themeToggleMobile) themeToggleMobile.setAttribute('aria-label', label);
     }
 
-    const savedTheme = localStorage.getItem('theme') ||
-        (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    const savedTheme = localStorage.getItem('theme') || 'light';
     applyTheme(savedTheme);
 
     if (themeToggle) themeToggle.addEventListener('click', () => {
