@@ -467,7 +467,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 4rem;
-            align-items: start;
+            align-items: stretch;
         }
 
         .menu-cat-title {
@@ -630,6 +630,8 @@
         }
 
         .menu-category {
+            display: flex;
+            flex-direction: column;
             scroll-margin-top: 8rem;
             transition: opacity 0.3s, transform 0.3s;
         }
@@ -654,30 +656,32 @@
         }
 
         .menu-more-row {
-            padding-top: 1.5rem;
+            margin-top: auto;
+            padding-top: 1rem;
+            text-align: left;
         }
 
         .menu-more-row[hidden] { display: none; }
 
         .menu-more-btn {
             background: none;
-            border: 1px solid rgba(201,168,76,0.45);
-            color: var(--gold);
-            padding: 0.75rem 1.5rem;
-            font-size: 0.65rem;
-            letter-spacing: 0.16em;
+            border: 0;
+            border-bottom: 1px solid rgba(201,168,76,0.34);
+            color: rgba(201,168,76,0.82);
+            padding: 0.3rem 0 0.22rem;
+            font-size: 0.56rem;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             cursor: pointer;
             font-family: var(--sans);
             font-weight: 500;
-            width: 100%;
-            transition: background 0.25s, border-color 0.25s, color 0.25s;
+            width: auto;
+            transition: border-color 0.25s, color 0.25s, opacity 0.25s;
         }
 
         .menu-more-btn:hover,
         .menu-more-btn:focus-visible {
-            background: rgba(201,168,76,0.1);
-            border-color: rgba(201,168,76,0.7);
+            border-color: rgba(201,168,76,0.75);
             color: var(--gold-light);
             outline: none;
         }
@@ -1133,9 +1137,15 @@
             section { padding: 6rem 0; }
             .nosotros-grid { grid-template-columns: 1fr; gap: 3.5rem; }
             .nosotros-img-wrap { aspect-ratio: 16/9; }
-            .platillos-grid { grid-template-columns: 1fr 1fr; }
+            .platillos-header { margin-bottom: 2.5rem; }
+            .platillos-grid { grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+            .platillo-card { border: 1px solid rgba(201,168,76,0.14); background: rgba(255,255,255,0.02); }
             .platillo-card:first-child { grid-column: 1 / -1; grid-row: span 1; }
             .platillo-card:first-child .platillo-img-wrap { aspect-ratio: 16/9; }
+            .platillo-info { padding: 1.25rem; }
+            .platillo-card:first-child .platillo-info { padding: 1.6rem; }
+            .platillo-name { font-size: 1.25rem; line-height: 1.05; }
+            .platillo-card:first-child .platillo-name { font-size: 2rem; }
             .sucursales-grid { grid-template-columns: 1fr; gap: 1.25rem; }
             .menu-categories { grid-template-columns: 1fr; gap: 2rem; }
             .menu-tools { margin: 2rem 0 2.5rem; }
@@ -1149,7 +1159,33 @@
 
         @media (max-width: 540px) {
             .hero-title { font-size: 4.5rem; }
-            .platillos-grid { grid-template-columns: 1fr; }
+            #platillos { overflow: visible; }
+            #platillos .container { padding: 0 1.35rem; }
+            .platillos-header { padding: 0; margin-bottom: 1.75rem; }
+            #platillos .section-eyebrow { gap: 0.7rem; font-size: 0.5rem; letter-spacing: 0.24em; margin-bottom: 0.9rem; }
+            #platillos .section-eyebrow::after { width: 26px; }
+            #platillos .section-title { font-size: clamp(2.65rem, 13vw, 3.35rem); max-width: 9ch; }
+            .platillos-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem;
+            }
+            .platillo-card {
+                border-color: rgba(201,168,76,0.2);
+                background: rgba(255,255,255,0.025);
+                box-shadow: 0 16px 34px rgba(0,0,0,0.3);
+            }
+            .platillo-card:first-child { grid-column: 1 / -1; }
+            .platillo-card .platillo-img-wrap,
+            .platillo-card:not(:first-child) .platillo-img-wrap { aspect-ratio: 1 / 1; }
+            .platillo-card:first-child .platillo-img-wrap { aspect-ratio: 4 / 3; }
+            .platillo-img-wrap img { filter: brightness(0.58) grayscale(0.12); }
+            .platillo-gradient { background: linear-gradient(to top, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.56) 42%, rgba(10,10,10,0.04) 76%); }
+            .platillo-info { padding: 0.95rem; }
+            .platillo-card:first-child .platillo-info { padding: 1.35rem; }
+            .platillo-label { font-size: 0.46rem; letter-spacing: 0.18em; margin-bottom: 0.3rem; }
+            .platillo-name { font-size: 1.18rem; line-height: 1.05; }
+            .platillo-card:first-child .platillo-name { font-size: 2rem; }
             .phones-row { gap: 1.5rem; }
             .menu-search input { font-size: 0.68rem; letter-spacing: 0.04em; }
             .menu-subnav-btn { padding: 0.5rem 0.7rem; font-size: 0.48rem; }
